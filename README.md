@@ -9,3 +9,7 @@
 `npm install`
 
 `npm run dev`
+
+## Start local docker compose
+
+`docker compose up -d`
