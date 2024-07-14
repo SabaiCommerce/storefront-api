@@ -10,15 +10,21 @@ const Product = mongoose.model('products', {
 });
 
 /* GET users listing. */
-router.get('/:productName', async (req, res, next) => {
+router.get('/:productNameOrId', async (req, res, next) => {
 
-  const productName = req.params.productName;
-  let product = await Product.findOne({ name: productName }).exec();
+  const productNameOrId = req.params.productNameOrId;
+  let product = await Product.findOne({
+    $or: [
+      { name: productNameOrId },
+      { id: parseInt(productNameOrId)}
+    ]
+  })
+  .exec();
 
   res.json({
     "status": "success",
     "data": product
-  }).send();
+  });
 });
 
 module.exports = router;
